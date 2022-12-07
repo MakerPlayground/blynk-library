@@ -58,17 +58,19 @@ public:
 
     void config(const char* auth,
                 const char* domain = BLYNK_DEFAULT_DOMAIN,
-                uint16_t    port   = BLYNK_DEFAULT_PORT)
+                uint16_t    port   = BLYNK_DEFAULT_PORT,
+                const char* templateID = "")
     {
-        Base::begin(auth);
+        Base::begin(auth, templateID);
         this->conn.begin(domain, port);
     }
 
     void config(const char* auth,
                 IPAddress   ip,
-                uint16_t    port = BLYNK_DEFAULT_PORT)
+                uint16_t    port = BLYNK_DEFAULT_PORT,
+                const char* templateID = "")
     {
-        Base::begin(auth);
+        Base::begin(auth, templateID);
         this->conn.begin(ip, port);
     }
 
@@ -76,10 +78,11 @@ public:
                const char* ssid,
                const char* pass,
                const char* domain = BLYNK_DEFAULT_DOMAIN,
-               uint16_t    port   = BLYNK_DEFAULT_PORT)
+               uint16_t    port   = BLYNK_DEFAULT_PORT,
+               const char* templateID = "")
     {
         connectWiFi(ssid, pass);
-        config(auth, domain, port);
+        config(auth, domain, port, templateID);
         while(this->connect() != true) {}
     }
 
@@ -87,10 +90,11 @@ public:
                const char* ssid,
                const char* pass,
                IPAddress   ip,
-               uint16_t    port   = BLYNK_DEFAULT_PORT)
+               uint16_t    port   = BLYNK_DEFAULT_PORT,
+               const char* templateID = "")
     {
         connectWiFi(ssid, pass);
-        config(auth, ip, port);
+        config(auth, ip, port, templateID);
         while(this->connect() != true) {}
     }
 

@@ -114,8 +114,9 @@ private:
     uint16_t getNextMsgId();
 
 protected:
-    void begin(const char* auth) {
+    void begin(const char* auth, const char* templateID) {
         this->authkey = auth;
+        this->templateID = templateID;
         lastHeartbeat = lastActivityIn = lastActivityOut = (BlynkMillis() - 5000UL);
 #if !defined(BLYNK_NO_DEFAULT_BANNER)
         printBanner();
@@ -128,6 +129,7 @@ protected:
 
 private:
     const char* authkey;
+    const char* templateID;
     char*       redir_serv;
     millis_time_t lastActivityIn;
     millis_time_t lastActivityOut;
@@ -266,7 +268,7 @@ bool BlynkProtocol<Transp>::processInput(void)
                     BLYNK_LOG2(BLYNK_F("Free RAM: "), ram);
                 }
 #endif
-                this->sendInfo();
+                this->sendInfo(this->templateID);
                 BLYNK_RUN_YIELD();
                 BlynkOnConnected();
                 return true;
@@ -325,7 +327,7 @@ bool BlynkProtocol<Transp>::processInput(void)
                 BLYNK_LOG2(BLYNK_F("Free RAM: "), ram);
             }
 #endif
-            this->sendInfo();
+            this->sendInfo(this->templateID);
             BLYNK_RUN_YIELD();
             BlynkOnConnected();
         }

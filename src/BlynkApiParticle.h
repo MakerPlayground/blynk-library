@@ -16,7 +16,7 @@
 
 template<class Proto>
 BLYNK_FORCE_INLINE
-void BlynkApi<Proto>::sendInfo()
+void BlynkApi<Proto>::sendInfo(const char* templateID)
 {
     static const char profile[] BLYNK_PROGMEM = "blnkinf\0"
         BLYNK_PARAM_KV("ver"    , BLYNK_VERSION)
@@ -32,7 +32,7 @@ void BlynkApi<Proto>::sendInfo()
         BLYNK_PARAM_KV("con"    , BLYNK_INFO_CONNECTION)
 #endif
 #ifdef BLYNK_FIRMWARE_TYPE
-        BLYNK_PARAM_KV("fw-type", BLYNK_FIRMWARE_TYPE)
+        BLYNK_PARAM_KV("fw-type", templateID)
 #endif
 #ifdef BLYNK_FIRMWARE_VERSION
         BLYNK_PARAM_KV("fw"     , BLYNK_FIRMWARE_VERSION)
@@ -44,14 +44,12 @@ void BlynkApi<Proto>::sendInfo()
 
     char mem_dyn[64];
     BlynkParam profile_dyn(mem_dyn, 0, sizeof(mem_dyn));
-#ifdef BLYNK_TEMPLATE_ID
     {
-        const char* tmpl = BLYNK_TEMPLATE_ID;
+        const char* tmpl = templateID;
         if (tmpl && strlen(tmpl)) {
             profile_dyn.add_key("tmpl", tmpl);
         }
     }
-#endif
 
 #ifdef BLYNK_HAS_PROGMEM
     char mem[profile_len];

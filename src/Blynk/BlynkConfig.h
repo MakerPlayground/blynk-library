@@ -13,14 +13,7 @@
 
 #include <Blynk/BlynkDetectDevice.h>
 
-/***************************************************
- * Change these settings to match your need
- ***************************************************/
-#ifdef BLYNK_TEMPLATE_ID
 #define BLYNK_DEFAULT_DOMAIN     "blynk.cloud"
-#else
-#define BLYNK_DEFAULT_DOMAIN     "blynk-cloud.com"
-#endif
 
 #define BLYNK_DEFAULT_PORT       80
 #define BLYNK_DEFAULT_PORT_SSL   443

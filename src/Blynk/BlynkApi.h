@@ -13,10 +13,6 @@
 
 // back-compat
 
-#ifdef BOARD_FIRMWARE_TYPE
-    #define BLYNK_FIRMWARE_TYPE         BOARD_FIRMWARE_TYPE
-#endif
-
 #ifdef BOARD_FIRMWARE_VERSION
     #define BLYNK_FIRMWARE_VERSION      BOARD_FIRMWARE_VERSION
 #endif
@@ -26,10 +22,6 @@
 #endif
 
 // end of back-compat
-
-#if !defined(BLYNK_FIRMWARE_TYPE) && defined(BLYNK_TEMPLATE_ID)
-    #define BLYNK_FIRMWARE_TYPE         BLYNK_TEMPLATE_ID
-#endif
 
 #include <Blynk/BlynkConfig.h>
 #include <Blynk/BlynkDebug.h>
@@ -328,7 +320,7 @@ public:
 
 protected:
     void processCmd(const void* buff, size_t len);
-    void sendInfo();
+    void sendInfo(const char* templateID);
 };
 
 
